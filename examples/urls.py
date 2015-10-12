@@ -1,11 +1,14 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
+from contacts.views import ContractorView, ContactView
 from .views import RecipeView, IngredientView
 
 router = DefaultRouter()
 router.register(r'recipientes', RecipeView)
 router.register(r'ingredientes', IngredientView)
+router.register(r'contratantes', ContractorView)
+router.register(r'contactos', ContactView)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
