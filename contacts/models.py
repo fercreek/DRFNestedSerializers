@@ -12,3 +12,10 @@ class Contractor(models.Model):
 
     def __str__(self):
         return self.name
+
+class Group(models.Model):
+    group_name = models.CharField(max_length=50)
+    contractors = models.ManyToManyField(Contractor)
+
+    def __strt__(self):
+        return self.group_name

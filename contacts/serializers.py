@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from contacts.models import Contractor, Contact
+from contacts.models import Contractor, Contact, Group
 
 class ContactSerializer(serializers.ModelSerializer):
 
@@ -20,3 +20,19 @@ class ContractorSerializer(serializers.ModelSerializer):
             contact, created = Contact.objects.get_or_create(name=contact['name'])
             contractor.contacts.add(contact)
         return contractor
+# TODO def update()
+
+class GroupSerializer(serializers.ModelSerializer):
+    contractors = ContractorSerializer(many=True)
+
+    class Meta:
+        model = Group
+
+    def create(self, validated_data):
+        contractors_data = validated_data.pop('contractors')
+        group = Group.objects.create(**validated_data)
+
+        for contractor in contractors_data:
+            contractor, created = Contractor.objects.get_or_create(name=contractor['name'])
+            group.contractors.add(contractor)
+        return group
