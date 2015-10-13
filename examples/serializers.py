@@ -21,3 +21,14 @@ class RecipeSerializer(serializers.ModelSerializer):
             ingredient, created = Ingredient.objects.get_or_create(name=ingredient['name'])
             recipe.ingredients.add(ingredient)
         return recipe
+
+    def update(self, instance, validated_data):
+        ingredients_data = validated_data.pop('ingredients')
+        instance.name = validated_data['name']
+        instance.description = validated_data['description']
+        instance.directions = validated_data['directions']
+
+        for ingredient in ingredients_data:
+            ingredient, created = Ingredient.objects.get_or_create(name=ingredient['name'])
+            recipe.ingredients.add(ingredient)
+        return instance
