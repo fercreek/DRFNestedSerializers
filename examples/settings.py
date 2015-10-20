@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'examples',
     'contacts',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
